@@ -11,32 +11,35 @@ import {
 import "@livekit/components-styles";
 
 import { Track } from "livekit-client";
+import Login from "./Login";
+import JoinRoom from "./JoinRoom";
 
-const serverUrl = "wss://kotteb-v68xaust.livekit.cloud";
+// Use environment variables for configuration
+const serverUrl =
+  import.meta.env.VITE_LIVEKIT_SERVER_URL || "wss://default-url.livekit.cloud";
 
 export default function App() {
-  const [roomId, setRoomId] = useState("");
   const [joined, setJoined] = useState(false);
   const [token, setToken] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authToken, setAuthToken] = useState("");
 
-  const handleLogin = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await fetch("http://localhost:5099/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          rememberMe: true,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+            rememberMe: true,
+          }),
+        }
+      );
       if (response.ok) {
         const { data } = await response.json();
         setAuthToken(data.tokens.accessToken);
@@ -49,12 +52,11 @@ export default function App() {
     }
   };
 
-  const handleJoin = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleJoin = async (roomId: string) => {
     if (roomId) {
       try {
         const response = await fetch(
-          `http://localhost:5099/api/v1/room/getToken?roomId=${roomId}`,
+          `${import.meta.env.VITE_API_URL}/room/getToken?roomId=${roomId}`,
           {
             method: "GET",
             headers: {
@@ -77,41 +79,15 @@ export default function App() {
 
   const handleDisconnect = () => {
     setJoined(false);
-    setRoomId("");
     setToken("");
   };
 
   return (
     <>
       {!isAuthenticated ? (
-        <form onSubmit={handleLogin} style={{ padding: "20px" }}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button type="submit">Login</button>
-        </form>
+        <Login onLogin={handleLogin} />
       ) : !joined ? (
-        <form onSubmit={handleJoin} style={{ padding: "20px" }}>
-          <input
-            type="text"
-            placeholder="Enter room ID"
-            value={roomId}
-            onChange={(e) => setRoomId(e.target.value)}
-            required
-          />
-          <button type="submit">Join</button>
-        </form>
+        <JoinRoom onJoin={handleJoin} />
       ) : (
         <LiveKitRoom
           video={true}

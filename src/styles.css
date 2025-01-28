@@ -1,0 +1,80 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-form,
+.join-room-form {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.login-form:hover,
+.join-room-form:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-form h2,
+.join-room-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.login-form input,
+.join-room-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input:focus,
+.join-room-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.login-form button,
+.join-room-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-form button:hover,
+.join-room-form button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.login-form button:active,
+.join-room-form button:active {
+  transform: translateY(0);
+  background-color: #004494;
+}
