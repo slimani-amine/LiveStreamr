@@ -38,10 +38,7 @@ To run the LiveStreamr application locally, follow these steps:
    ```
 
 3. **Set up the backend**:
-   Ensure you have a backend server running that provides the authentication and token generation endpoints. The application expects the following endpoints:
-
-   - `POST http://localhost:5099/api/v1/auth/login` for user authentication.
-   - `GET http://localhost:5099/api/v1/room/getToken?roomId={roomId}` for fetching the room token.
+   Ensure you have a backend server running that provides the authentication and token generation endpoints.:
 
 4. **Run the application**:
 
