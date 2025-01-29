@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   ControlBar,
   GridLayout,
@@ -11,8 +11,8 @@ import {
 import "@livekit/components-styles";
 
 import { Track } from "livekit-client";
-import Login from "./Login";
-import JoinRoom from "./JoinRoom";
+import Login from "./components/Login";
+import JoinRoom from "./components/JoinRoom";
 
 // Use environment variables for configuration
 const serverUrl =
